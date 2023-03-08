@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  web:
+    image: nginx
+    restart: always
+    container_name: nginx-patient2
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      projetos_micro_servicos:
+        ipv4_address: 10.11.0.200
+  php:
+    build:
+      context: .
+    container_name: php-patient2
+    restart: unless-stopped
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: laravel
+      DB_USERNAME: postgres
+      DB_PASSWORD: secret
+      REDIS_HOST: redis
+    volumes:
+      - .:/var/www/html
+    networks:
+      projetos_micro_servicos:
+        ipv4_address: 10.11.0.201
+
+networks:
+  projetos_micro_servicos:
+    external: true
