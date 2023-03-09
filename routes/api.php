@@ -29,6 +29,8 @@ Route::controller(PatientController::class)->group(function () {
     Route::get('/patients', 'index');
 });
 
+Route::get('/zipcode/{code}', [ZipCodeController::class, 'find']);
+
 Route::get('/', function () use ($router) {
     return '1';
 });
