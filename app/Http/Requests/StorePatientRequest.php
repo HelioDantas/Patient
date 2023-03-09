@@ -25,10 +25,11 @@ class StorePatientRequest extends FormRequest
     {
         return [
             'birthday' => 'required|date',
-            'full_name' => 'required',
+            'full_name' => 'required|string',
             'mom_full_name' => 'required',
             'cns' => 'required|unique:patients',
             'cpf' => 'required|unique:patients|size:11',
+            'photo_url' => 'required|string',
             'address.zip_code' => 'required',
             'address.street' => 'required',
             'address.number' => 'required|numeric',

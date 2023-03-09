@@ -21,6 +21,7 @@ class PatientResource extends JsonResource
             'cns' => $this->cns,
             'cpf' => $this->cpf,
             'birthday' => $this->birthday,
+            'photo_url' => $this->photo_url,
             'address' => new AddressResource($this->address),
         ];
     }

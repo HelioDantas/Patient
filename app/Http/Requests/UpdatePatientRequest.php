@@ -29,6 +29,7 @@ class UpdatePatientRequest extends FormRequest
             'mom_full_name' => 'required',
             'cns' => 'required',
             'cpf' => 'required|size:11',
+            'photo_url' => 'required|string',
             'address.zip_code' => 'required',
             'address.street' => 'required',
             'address.number' => 'required|numeric',

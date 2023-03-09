@@ -15,7 +15,8 @@ class Patient extends Model
         'mom_full_name',
         'cns',
         'cpf',
-        'birthday'
+        'birthday',
+        'photo_url'
     ];
 
     public function address(): HasOne
