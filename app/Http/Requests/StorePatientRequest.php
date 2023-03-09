@@ -28,7 +28,7 @@ class StorePatientRequest extends FormRequest
             'full_name' => 'required|string',
             'mom_full_name' => 'required',
             'cns' => 'required|unique:patients',
-            'cpf' => 'required|unique:patients|size:11',
+            'cpf' => 'required|unique:patients|size:11|cpf',
             'photo_url' => 'required|string',
             'address.zip_code' => 'required',
             'address.street' => 'required',
