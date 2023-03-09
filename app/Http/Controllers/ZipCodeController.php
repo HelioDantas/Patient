@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Service\ZipCodeService;
 
 class ZipCodeController extends Controller
 {
 
+    public function __construct(
+        private readonly ZipCodeService $service
+    ) {}
+
     public function find(string $code)
     {
-        $response = Http::get("https://viacep.com.br/ws/{$code}/json/");
-        return $response;
+        return $this->service->find($code);
     }
 }
