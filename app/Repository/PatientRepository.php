@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Http\Requests\FindPatientRequest;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Patient;
@@ -42,8 +43,15 @@ class PatientRepository
         return $patient;
     }
 
-    public function paginate()
+    public function paginate(FindPatientRequest $request)
     {
-        return Patient::paginate();
+
+        $validated = $request->only(['cpf', 'full_name']);
+
+        $queries = [];
+        foreach($validated as $key => $value) {
+            $queries[] = [$key, 'like', "%$value%"];
+        }
+        return Patient::where($queries)->paginate()->appends($request->all());
     }
 }
