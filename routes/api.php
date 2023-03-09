@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ZipCodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::controller(PatientController::class)->group(function () {
+    Route::get('/patients/{patientId}', 'show');
+    Route::delete('/patients/{patientId}', 'destroy');
+    Route::post('/patients', 'store');
+    Route::put('/patients/{patientId}', 'update');
+    Route::get('/patients', 'index');
+});
+
+Route::get('/', function () use ($router) {
+    return '1';
 });
