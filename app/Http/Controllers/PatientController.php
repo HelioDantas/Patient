@@ -93,9 +93,8 @@ class PatientController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator);
+            return response()
+                ->json($validator->errors(), 400);
         }
 
         $file = $request->file('file');
