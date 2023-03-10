@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Http\Requests\StorePatientRequest;
+use App\Models\Patient;
 use App\Repository\PatientRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,7 +28,7 @@ class ProcessPatients implements ShouldQueue
 
     public function getRepository(): PatientRepository
     {
-        return $this->repository ?? $this->repository = new PatientRepository();
+        return $this->repository ?? $this->repository = new PatientRepository(new Patient());
     }
 
     /**

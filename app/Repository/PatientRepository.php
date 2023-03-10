@@ -7,11 +7,15 @@ use App\Http\Requests\FindPatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Patient;
 
-class PatientRepository
-{
+readonly class PatientRepository
+{   
+    public function __construct(
+        private Patient $model
+    ) { }
+
     public function create(PatientDto $input)
     {
-        $patient = Patient::create($input->toArray());
+        $patient = $this->model->create($input->toArray());
         $patient->address()->create($input->address->toArray());
         $patient->refresh();
         return $patient;
@@ -19,12 +23,12 @@ class PatientRepository
 
     public function findOrFail(int $id)
     {
-        return Patient::findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     public function destroy(int $id)
     {
-        $patient = Patient::findOrFail($id);
+        $patient = $this->model->findOrFail($id);
 
         $patient->address()->delete();
 
@@ -44,13 +48,12 @@ class PatientRepository
 
     public function paginate(FindPatientRequest $request)
     {
-
         $validated = $request->only(['cpf', 'full_name']);
 
         $queries = [];
         foreach($validated as $key => $value) {
             $queries[] = [$key, 'like', "%$value%"];
         }
-        return Patient::where($queries)->paginate()->appends($request->all());
+        return $this->model->where($queries)->paginate()->appends($request->all());
     }
 }
