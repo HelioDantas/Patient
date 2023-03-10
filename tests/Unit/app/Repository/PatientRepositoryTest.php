@@ -43,4 +43,22 @@ class PatientRepositoryTest extends TestCase
         $this->assertEquals('1990-01-01', $patient->birthday);
         $this->assertEquals('http://example.com/photo.jpg', $patient->photo_url);
     }
+
+    public function testFindOrFail()
+    {
+        $patient = Patient::factory()->create();
+        $patientRepository = new PatientRepository(new Patient());
+
+        $patientResult = $patientRepository->findOrFail($patient->id);
+        
+        $this->assertEquals($patient->full_name, $patientResult->full_name);
+    }
+
+    public function testDestroy()
+    {
+        $patient = Patient::factory()->create();
+        $patientRepository = new PatientRepository(new Patient());
+        
+        $this->assertTrue($patientRepository->destroy($patient->id));
+    }
 }
