@@ -24,7 +24,33 @@ services:
     networks:
       projetos_micro_servicos:
         ipv4_address: 10.11.0.201
+    depends_on:
+      - postgres
+      - redis
+  postgres:
+    image: postgres
+    container_name: postgres2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: patient
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      projetos_micro_servicos:
+        ipv4_address: 10.11.0.203
+  redis:
+    image: redis
+    container_name: redis2
+    restart: always
+    networks:
+      projetos_micro_servicos:
+        ipv4_address: 10.11.0.202
 
 networks:
   projetos_micro_servicos:
     external: true
+volumes:
+  dbdata:
