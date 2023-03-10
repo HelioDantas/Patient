@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/', [PatientController::class, 'index2']);

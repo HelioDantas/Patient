@@ -26,6 +26,7 @@ Route::controller(PatientController::class)->group(function () {
     Route::get('/patients/{patientId}', 'show');
     Route::delete('/patients/{patientId}', 'destroy');
     Route::put('/patients/{patientId}', 'update');
+    Route::post('/patients/import', 'import')->name('import');
 });
 
 Route::get('/zipcode/{code}', [ZipCodeController::class, 'find']);

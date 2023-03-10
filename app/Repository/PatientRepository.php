@@ -2,18 +2,17 @@
 
 namespace App\Repository;
 
+use App\Dto\PatientDto;
 use App\Http\Requests\FindPatientRequest;
-use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Patient;
 
 class PatientRepository
 {
-    public function create(StorePatientRequest | UpdatePatientRequest $request)
+    public function create(PatientDto $input)
     {
-        $patient = Patient::create($request->all());
-        $address = $request->only('address')['address'];
-        $patient->address()->create($address);
+        $patient = Patient::create($input->toArray());
+        $patient->address()->create($input->address->toArray());
         $patient->refresh();
         return $patient;
     }
