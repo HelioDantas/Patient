@@ -23,9 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(PatientController::class)->group(function () {
     Route::post('/patients', 'store');
     Route::get('/patients', 'index');
-    Route::get('/patients/{patientId}', 'show');
-    Route::delete('/patients/{patientId}', 'destroy');
-    Route::put('/patients/{patientId}', 'update');
+    Route::get('/patients/{patientId}', 'show')->where('patientId', '[0-9]+');
+    Route::delete('/patients/{patientId}', 'destroy')->where('patientId', '[0-9]+');
+    Route::put('/patients/{patientId}', 'update')->where('patientId', '[0-9]+');
     Route::post('/patients/import', 'import')->name('import');
 });
 
